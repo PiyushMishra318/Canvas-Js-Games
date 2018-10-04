@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>pace Shooter</title>
+</head>
+<body>
+
+<canvas id="canvas" width="1024" height="576"></canvas>
+<style type="text/css">
+	canvas{
+		display: block;
+		position: absolute;
+		margin:auto;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+	}
+</style>
+
+<script type="text/javascript">
+	
+	var
+	canvas = document.getElementById('canvas'),
+	ctx = canvas.getContext('2d'),
+	enemy = [];
+
+	playerImg = new Image();
+	enemyImg = new Image();
+	bgImg = new Image();
+
+
+	playerImg.src = 'player.png';
+	enemyImg.src = 'enemy.png';
+	bgImg.src = 'bg.png';
+
+	enemy[0] = {
+		x : (canvas.width - enemyImg.width)/2 - 50,
+		y : 10
+	}
+
+
+	
+
+	window.onload = function draw(){
+
+		ctx.drawImage(bgImg, 0, 0, 1024, 576);
+		ctx.drawImage(playerImg, (canvas.width - playerImg.width)/2, canvas.height - playerImg.height)
+
+		for (var i = 0; i < enemy.length; i++) {
+			ctx.drawImage(enemyImg, enemy[i].x, enemy[i].y)
+
+			enemy[i].y +=1;
+
+			if(enemy[i].y === (canvas.height - enemyImg.height) - 150){
+				enemy.push({
+					x : (canvas.width - enemyImg.width)/2*Math.random(),
+					y : 10
+				})
+			}
+		}
+
+
+		requestAnimationFrame(draw);
+	}
+
+
+
+</script>
+
+</body>
+</html>
